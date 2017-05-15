@@ -1,0 +1,4 @@
+exportPattern("^[[:alpha:]]+")
+importFrom("stats", "ave", "complete.cases")
+importFrom("utils", "timestamp")
+importFrom("utils", "globalVariables")
