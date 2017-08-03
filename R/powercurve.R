@@ -5,23 +5,28 @@
 #' @param NumbResp Total max number of responses per participant (e.g., number of days * number of responses per day). You can either enter this OR enter number of days and number of responses per day manually. If all are entered, it will default to NumbResp.
 #' @param days Maximum number of days in study.
 #' @param respday Maximum number of responses per day.
-#' @param Est_ICC Estimated model ICC. Defaults to .5, but you should use a priori information from prior studies.
+#' @param Est_ICC Estimated model ICC. Defaults to .05, but you should use a priori information from prior studies.
+#' @param COL.8 Color of line for large (d=.8) effect size. Defualt is red, but you can specify colors by name or by hex code (make sure to put colors in quotation marks).
+#' @param COL.5 Color of line for medium (d=.5) effect size. Defualt is blue, but you can specify colors by name or by hex code (make sure to put colors in quotation marks).
+#' @param COL.2 Color of line for small (d=.2) effect size. Defualt is green, but you can specify colors by name or by hex code (make sure to put colors in quotation marks).
 #' @return A ggplot object that displays power curves at three effect sizes (d=.2,.5,.8).
 #' @keywords power analysis
 #' @examples
-#' \dontrun{ema.powercurve(NumbPart=80,days=30,respday = 3)}
+#' \dontrun{ema.powercurve(NumbPart=80,days=30,respday=3)}
 #'  \dontrun{ema.powercurve(NumbPart=80,NumbResp=200)}
+#'   \dontrun{ema.powercurve(NumbPart=80,NumbResp=200,COL.8="orange")}
+#'   \dontrun{ema.powercurve(NumbPart=80,NumbResp=200,COL.8="orange",COL.5="#FF5733",COL.3="#8E44AD")}
 
 
 
-ema.powercurve=function(NumbPart,NumbResp,days,respday,Est_ICC=.5){
+ema.powercurve=function(NumbPart,NumbResp,days,respday,Est_ICC=.05,COL.8="red",COL.5="blue",COL.2="green"){
 
-  if(missing(NumbResp)) {
+
+  if(!missing(days) & !missing(respday)) {
     NumbResp<-days*respday
   } else {
     NumbResp<-NumbResp
   }
-
 
 ### initate matricies ####
 eff8a<-NULL;eff2a<-NULL;eff5a<-NULL
@@ -29,19 +34,18 @@ eff8a<-NULL;eff2a<-NULL;eff5a<-NULL
 #### functions for power curves ####
 
 for (PWR in c(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.99)){
-  eff8<-(sjstats::smpsize_lmm(eff.size = 0.8, power = PWR, sig.level = 0.05, k = NumbPart, icc = Est_ICC))
+  eff8<-(sjstats::smpsize_lmm(eff.size = 0.8, power = PWR, sig.level = 0.05, k = NumbPart, icc = Est_ICC,n=NumbResp))
   eff8a<-as.data.frame(rbind(eff8a,eff8$`Subjects per Cluster`))
 }
 
 for (PWR in c(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.99)){
-  eff5<-(sjstats::smpsize_lmm(eff.size = 0.5, power = PWR, sig.level = 0.05, k = NumbPart, icc = Est_ICC))
+  eff5<-(sjstats::smpsize_lmm(eff.size = 0.5, power = PWR, sig.level = 0.05, k = NumbPart, icc = Est_ICC,n=NumbResp))
   eff5a<-as.data.frame(rbind(eff5a,eff5$`Subjects per Cluster`))
 }
 
 
-
 for (PWR in c(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.99)){
-  eff2<-(sjstats::smpsize_lmm(eff.size = 0.2, power = PWR, sig.level = 0.05, k = NumbPart, icc = Est_ICC))
+  eff2<-(sjstats::smpsize_lmm(eff.size = 0.2, power = PWR, sig.level = 0.05, k = NumbPart, icc = Est_ICC,n=NumbResp))
   eff2a<-as.data.frame(rbind(eff2a,eff2$`Subjects per Cluster`))
 }
 
@@ -83,13 +87,16 @@ eff_final<-rbind(lg,md,sm)
 xlab_chart <- paste("Responses per participant (n =",NumbPart,"participants)" )
 
 
-PowerPlot1<-ggplot2::ggplot()+ geom_line(aes(x = Resp,y = Power,color=Effect_Size),size=1, data=eff_final)+
-xlab(xlab_chart) + ylab("Power (1-beta)") +
-  scale_x_continuous(limits = c(0,(round((NumbResp+40),-1))),breaks =seq(0, (round(NumbResp+40,-1)), by=20))+
-  scale_y_continuous(breaks=c(0.1,0.4,0.6,0.8,1.00), limits=c(0.1,1.00))+
-  geom_vline(xintercept=(NumbResp*.50),color="grey65", linetype = 3)+geom_vline(xintercept=(NumbResp*.75),color="grey65", linetype = 2)+
-  geom_vline(xintercept=(NumbResp),color="grey65", linetype = 1)+
-  geom_line(aes(x = as.numeric(NumbRespColumn), y = as.numeric(power), linetype=Response_Rate), data=comp_final,color="grey65")+
-  theme_classic()
+PowerPlot1<-ggplot2::ggplot()+ ggplot2::geom_line(ggplot2::aes(x = Resp,y = Power,color=Effect_Size),size=1, data=eff_final)+
+  ggplot2::xlab(xlab_chart) +
+  ggplot2::ylab("Power (1-beta)") +
+  ggplot2::scale_x_continuous(limits = c(0,(round((NumbResp+40),-1))),breaks =seq(0, (round(NumbResp+40,-1)), by=20))+
+  ggplot2::scale_y_continuous(breaks=c(0.1,0.4,0.6,0.8,1.00), limits=c(0.1,1.00))+
+  ggplot2::geom_vline(xintercept=(NumbResp*.50),color="grey65", linetype = 3)+
+  ggplot2::geom_vline(xintercept=(NumbResp*.75),color="grey65", linetype = 2)+
+  ggplot2::geom_vline(xintercept=(NumbResp),color="grey65", linetype = 1)+
+  ggplot2::geom_line(ggplot2::aes(x = as.numeric(NumbRespColumn), y = as.numeric(power), linetype=Response_Rate), data=comp_final,color="grey65")+
+  ggplot2::theme_classic() + ggplot2::scale_linetype(name="Completion rate") +
+  ggplot2::scale_color_manual(name="Effect Size",values=c(COL.8,COL.5,COL.2))
 return(PowerPlot1)
 }
