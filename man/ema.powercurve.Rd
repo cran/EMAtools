@@ -4,8 +4,16 @@
 \alias{ema.powercurve}
 \title{Create power curves for EMA data}
 \usage{
-ema.powercurve(NumbPart, NumbResp, days, respday, Est_ICC = 0.05,
-  COL.8 = "red", COL.5 = "blue", COL.2 = "green")
+ema.powercurve(
+  NumbPart,
+  NumbResp,
+  days,
+  respday,
+  Est_ICC = 0.05,
+  COL.8 = "red",
+  COL.5 = "blue",
+  COL.2 = "green"
+)
 }
 \arguments{
 \item{NumbPart}{Total number of participants (i.e., level-2 unit)}
@@ -25,7 +33,7 @@ ema.powercurve(NumbPart, NumbResp, days, respday, Est_ICC = 0.05,
 \item{COL.2}{Color of line for small (d=.2) effect size. Defualt is green, but you can specify colors by name or by hex code (make sure to put colors in quotation marks).}
 }
 \value{
-A ggplot object that displays power curves at three effect sizes (d=.2,.5,.8).
+A ggplot object that displays power curves at three effect sizes (d=.2,.5,.8). You can use this like any other ggplot object (e.g., by adding other ggplot objects to it)
 }
 \description{
 This allows you to estimate power to detect an effect at three standard effect sizes (d = 0.2, 0.5, and 0.8). It uses the smpsize_lmm function from sjstats to generate data for the curves and ggplot2 to plot them.

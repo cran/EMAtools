@@ -28,7 +28,3 @@ lme4 and nlme models will produce slightly different estimates. This is because 
 }
 \keyword{Cohen's}
 \keyword{D}
-\keyword{Effect}
-\keyword{d}
-\keyword{score,}
-\keyword{size,}

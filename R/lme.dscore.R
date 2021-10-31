@@ -5,7 +5,7 @@
 #' @param data The dataset the lme4 or nlme object was drawn from
 #' @param type Either "lme4" or "nlme"
 #' @return A table of d-scores.
-#' @keywords Effect size, d score, Cohen's D
+#' @keywords Cohen's D
 #' @note lme4 and nlme models will produce slightly different estimates. This is because when using type="lme4", the numerator DF will be calculated using the Satterthwaite approximations to degrees of freedom (via the lmerTest package), whereas nlme includes Kenward-Roger numerator degress of freedom. If you have sufficent level-1 samples, the difference between models will be miniscule.
 #' @examples
 #' \dontrun{model1<-lmer(DV~IV1+IV2+IV3+(1|subject),data=DATA_1)}
