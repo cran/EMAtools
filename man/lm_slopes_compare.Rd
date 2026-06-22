@@ -18,9 +18,13 @@ Z-tests comapring slopes.
 This allows you to compare two lme4 models that have the same fixed predictors but differ in other ways (e.g., from different datasets, different random effects). It will produce a Z score a p-value for each effect.
 }
 \examples{
-\dontrun{model1<-lmer(DV~IV1+IV2+IV3+(1|subject),data=DATA_1)}
-\dontrun{model2<-lmer(DV~IV1+IV2+IV3+(1|subject),data=DATA_2)}
- \dontrun{lm_slopes_compare(model1,model2)}
+\donttest{
+data(sleepstudy, package = "lme4")
+model1 <- lmerTest::lmer(Reaction ~ Days + (1 | Subject), data = sleepstudy)
+model2 <- lmerTest::lmer(Reaction ~ Days + (1 | Subject),
+                         data = sleepstudy[sleepstudy$Days < 8, ])
+lm_slopes_compare(model1, model2)
+}
 }
 \keyword{Compare}
 \keyword{slopes}

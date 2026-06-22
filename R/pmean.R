@@ -8,7 +8,8 @@
 #' @keywords centering
 #' @export
 #' @examples
-#' \dontrun{data$centeredVAR<-pmean(data$ID,data$var)}
+#' df <- data.frame(ID = c(1, 1, 2, 2), var = c(1, 3, 5, 9))
+#' df$personMEAN <- pmean(df$ID, df$var)
 
 
 pmean<-function(ID,var){

@@ -39,10 +39,13 @@ A ggplot object that displays power curves at three effect sizes (d=.2,.5,.8). Y
 This allows you to estimate power to detect an effect at three standard effect sizes (d = 0.2, 0.5, and 0.8). It uses the smpsize_lmm function from sjstats to generate data for the curves and ggplot2 to plot them.
 }
 \examples{
-\dontrun{ema.powercurve(NumbPart=80,days=30,respday=3)}
- \dontrun{ema.powercurve(NumbPart=80,NumbResp=200)}
-  \dontrun{ema.powercurve(NumbPart=80,NumbResp=200,COL.8="orange")}
-  \dontrun{ema.powercurve(NumbPart=80,NumbResp=200,COL.8="orange",COL.5="#FF5733",COL.3="#8E44AD")}
+\donttest{
+ema.powercurve(NumbPart = 80, days = 30, respday = 3)
+ema.powercurve(NumbPart = 80, NumbResp = 200)
+ema.powercurve(NumbPart = 80, NumbResp = 200, COL.8 = "orange")
+ema.powercurve(NumbPart = 80, NumbResp = 200, COL.8 = "orange",
+               COL.5 = "#FF5733", COL.2 = "#8E44AD")
+}
 }
 \keyword{analysis}
 \keyword{power}

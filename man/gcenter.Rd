@@ -16,6 +16,7 @@ A column in your dataframe (with grand-mean centered data)
 This function allows you to center on grand-means.
 }
 \examples{
-\dontrun{data$centeredVAR<-gcenter(data$var)}
+df <- data.frame(var = c(1, 3, 5, 9))
+df$centeredVAR <- gcenter(df$var)
 }
 \keyword{centering}

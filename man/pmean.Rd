@@ -18,6 +18,7 @@ A column in your dataframe (with person-level means)
 This function allows you calculate person-level means. This will create a level-2 variable that can be used in tandem with person-centered means. This is useful if you are interested in both the within-person and between-person effects.
 }
 \examples{
-\dontrun{data$centeredVAR<-pmean(data$ID,data$var)}
+df <- data.frame(ID = c(1, 1, 2, 2), var = c(1, 3, 5, 9))
+df$personMEAN <- pmean(df$ID, df$var)
 }
 \keyword{centering}

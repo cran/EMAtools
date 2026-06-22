@@ -12,10 +12,13 @@
 #' @return A ggplot object that displays power curves at three effect sizes (d=.2,.5,.8). You can use this like any other ggplot object (e.g., by adding other ggplot objects to it)
 #' @keywords power analysis
 #' @examples
-#' \dontrun{ema.powercurve(NumbPart=80,days=30,respday=3)}
-#'  \dontrun{ema.powercurve(NumbPart=80,NumbResp=200)}
-#'   \dontrun{ema.powercurve(NumbPart=80,NumbResp=200,COL.8="orange")}
-#'   \dontrun{ema.powercurve(NumbPart=80,NumbResp=200,COL.8="orange",COL.5="#FF5733",COL.3="#8E44AD")}
+#' \donttest{
+#' ema.powercurve(NumbPart = 80, days = 30, respday = 3)
+#' ema.powercurve(NumbPart = 80, NumbResp = 200)
+#' ema.powercurve(NumbPart = 80, NumbResp = 200, COL.8 = "orange")
+#' ema.powercurve(NumbPart = 80, NumbResp = 200, COL.8 = "orange",
+#'                COL.5 = "#FF5733", COL.2 = "#8E44AD")
+#' }
 
 
 ema.powercurve=function(NumbPart,NumbResp,days,respday,Est_ICC=.05,COL.8="red",COL.5="blue",COL.2="green"){

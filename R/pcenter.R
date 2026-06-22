@@ -8,7 +8,8 @@
 #' @keywords centering
 #' @export
 #' @examples
-#' \dontrun{data$centeredVAR<-pcenter(data$ID,data$var)}
+#' df <- data.frame(ID = c(1, 1, 2, 2), var = c(1, 3, 5, 9))
+#' df$centeredVAR <- pcenter(df$ID, df$var)
 
 
 pcenter<-function(ID,var){

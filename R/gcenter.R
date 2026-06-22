@@ -7,7 +7,8 @@
 #' @keywords centering
 #' @export
 #' @examples
-#' \dontrun{data$centeredVAR<-gcenter(data$var)}
+#' df <- data.frame(var = c(1, 3, 5, 9))
+#' df$centeredVAR <- gcenter(df$var)
 
 
 gcenter<-function(var){

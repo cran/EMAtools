@@ -23,8 +23,11 @@ This will calculate Cohen's D for each effect in an lme4 object.
 lme4 and nlme models will produce slightly different estimates. This is because when using type="lme4", the numerator DF will be calculated using the Satterthwaite approximations to degrees of freedom (via the lmerTest package), whereas nlme includes Kenward-Roger numerator degress of freedom. If you have sufficent level-1 samples, the difference between models will be miniscule.
 }
 \examples{
-\dontrun{model1<-lmer(DV~IV1+IV2+IV3+(1|subject),data=DATA_1)}
- \dontrun{lme.dscore(model1,data=DATA_1,type="lme4")}
+\donttest{
+data(sleepstudy, package = "lme4")
+model1 <- Reaction ~ Days + (1 | Subject)
+lme.dscore(model1, data = sleepstudy, type = "lme4")
+}
 }
 \keyword{Cohen's}
 \keyword{D}

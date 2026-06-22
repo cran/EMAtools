@@ -8,9 +8,14 @@
 #' @keywords Observation Numbers
 #' @export
 #' @examples
-#' \dontrun{data$ObsNumb<-ObsNumbs(data$ID,data$TS, BY="P")}
-#' \dontrun{data$DayNumb<-ObsNumbs(data$ID,data$TS,BY="D")}
-#' \dontrun{data$ObsNumb_D<-ObsNumbs(data$ID,data$TS,BY="PD")}
+#' df <- data.frame(
+#'   ID = c(1, 1, 1, 2, 2),
+#'   TS = as.numeric(as.POSIXct(
+#'     c("2020-01-01 09:00", "2020-01-01 17:00", "2020-01-02 09:00",
+#'       "2020-01-01 10:00", "2020-01-02 10:00"), tz = "UTC")))
+#' df$ObsNumb   <- ObsNumbs(df$ID, df$TS, BY = "P")
+#' df$DayNumb   <- ObsNumbs(df$ID, df$TS, BY = "D")
+#' df$ObsNumb_D <- ObsNumbs(df$ID, df$TS, BY = "PD")
 
 ObsNumbs<-function(ID,TS,BY=c("P","D","PD")){
 
